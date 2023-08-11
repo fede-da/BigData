@@ -5,6 +5,9 @@
 /.vs
 *.code-workspace
 
+# AI trained model
+*.h5
+
 # === DLL Libraries ===
 *.dll
 
