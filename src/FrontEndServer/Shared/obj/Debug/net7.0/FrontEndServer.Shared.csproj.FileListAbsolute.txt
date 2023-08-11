@@ -1,0 +1,12 @@
+/Users/kaguyasama/GitHub/ML/src/FrontEndServer/Shared/bin/Debug/net7.0/FrontEndServer.Shared.deps.json
+/Users/kaguyasama/GitHub/ML/src/FrontEndServer/Shared/bin/Debug/net7.0/FrontEndServer.Shared.dll
+/Users/kaguyasama/GitHub/ML/src/FrontEndServer/Shared/bin/Debug/net7.0/FrontEndServer.Shared.pdb
+/Users/kaguyasama/GitHub/ML/src/FrontEndServer/Shared/obj/Debug/net7.0/FrontEndServer.Shared.csproj.AssemblyReference.cache
+/Users/kaguyasama/GitHub/ML/src/FrontEndServer/Shared/obj/Debug/net7.0/FrontEndServer.Shared.GeneratedMSBuildEditorConfig.editorconfig
+/Users/kaguyasama/GitHub/ML/src/FrontEndServer/Shared/obj/Debug/net7.0/FrontEndServer.Shared.AssemblyInfoInputs.cache
+/Users/kaguyasama/GitHub/ML/src/FrontEndServer/Shared/obj/Debug/net7.0/FrontEndServer.Shared.AssemblyInfo.cs
+/Users/kaguyasama/GitHub/ML/src/FrontEndServer/Shared/obj/Debug/net7.0/FrontEndServer.Shared.csproj.CoreCompileInputs.cache
+/Users/kaguyasama/GitHub/ML/src/FrontEndServer/Shared/obj/Debug/net7.0/FrontEndServer.Shared.dll
+/Users/kaguyasama/GitHub/ML/src/FrontEndServer/Shared/obj/Debug/net7.0/refint/FrontEndServer.Shared.dll
+/Users/kaguyasama/GitHub/ML/src/FrontEndServer/Shared/obj/Debug/net7.0/FrontEndServer.Shared.pdb
+/Users/kaguyasama/GitHub/ML/src/FrontEndServer/Shared/obj/Debug/net7.0/ref/FrontEndServer.Shared.dll

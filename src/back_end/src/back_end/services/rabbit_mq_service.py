@@ -1,9 +1,8 @@
 import pika
-import threading
 from injector import inject, singleton
 
-from src.back_end.dtos.MessageDto import MessageDto
-from src.back_end.services.config_service import ConfigService
+from back_end.dtos.MessageDto import MessageDto
+from back_end.services.config_service import ConfigService
 
 
 @singleton

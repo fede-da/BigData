@@ -1,0 +1,27 @@
+
+.message-container[b-24velj29sw] {
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+.send-container[b-24velj29sw] {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    position: sticky;
+    bottom: 0;
+    background-color: white;
+    padding: 10px;
+}
+
+.send-input[b-24velj29sw] {
+    line-height: 1.2;
+    resize: none;
+    flex-grow: 1;
+    margin-right: 10px;
+}
+
+.send-button[b-24velj29sw] {
+    padding: 10px 20px;
+}
+

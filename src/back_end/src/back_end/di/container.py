@@ -2,7 +2,7 @@
 
 from injector import inject, Injector, Module, singleton, provider
 
-from src.back_end.services.config_service import ConfigService
+from back_end.services.config_service import ConfigService
 
 
 class AppModule(Module):
