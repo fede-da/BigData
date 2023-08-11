@@ -1,0 +1,39 @@
+﻿@using FrontEndServer.Client.ChatBot_UI.Models.Messages;
+@using FrontEndServer.Client.ChatBot_UI.Services.RabbitMqClientService;
+
+@* Injections *@
+@inject IJSRuntime JSRuntime
+@inject IRabbitMqClientService RabbitMqClientService
+
+<div class="send-container">
+    <textarea @oninput="UpdateHeight" @bind="MessageText" class="send-input" @ref="TextAreaReference" maxlength="500" style="resize: none;"></textarea>
+    <button class="send-button" @onclick="ValidateAndSendMessage">Send</button>
+</div>
+
+@code {
+    [Parameter] public EventCallback<Message> OnSendMessage { get; set; }
+
+    private string MessageText { get; set; }
+    private ElementReference TextAreaReference;
+
+    private async Task ValidateAndSendMessage()
+    {
+        if (!string.IsNullOrEmpty(MessageText))
+        {
+            await OnSendMessage.InvokeAsync(new MessageFromClient( message: MessageText, sender: "" ,  sentOnDate:DateTime.Now));
+            await RabbitMqClientService.SendMessageAsync(MessageText);
+            MessageText = string.Empty;
+            await Task.Delay(100); // Wait for a short time to allow UI to update.
+            await UpdateHeight(null);
+        }
+    }
+
+    private async Task UpdateHeight(ChangeEventArgs e)
+    {
+        // js function is defined in wwwroot/js/TextBoxResize.js
+        await JSRuntime.InvokeVoidAsync("updateTextAreaHeight", TextAreaReference, 10);
+    }
+
+}
+
+

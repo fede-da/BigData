@@ -1,0 +1,7 @@
+{
+    "rabbitmq": {
+        "hostname": "localhost",
+        "input_queue": "dotnet",
+        "output_queue": "python"
+    }
+}
