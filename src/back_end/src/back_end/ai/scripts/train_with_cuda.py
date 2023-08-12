@@ -16,7 +16,7 @@ tokenizer = GPT2Tokenizer.from_pretrained("gpt2-medium")
 tokenizer.pad_token = tokenizer.eos_token
 
 # Tokenize dataset and prepare it as a tf.data.Dataset
-with open("../../data/raw/casual_talk.txt", "r") as file:
+with open("../data/raw/casual_talk.txt", "r") as file:
     lines = file.readlines()
 
 input_ids = [tokenizer.encode(text, max_length=MAX_LENGTH, truncation=True, padding='max_length') for text in lines]
@@ -74,7 +74,3 @@ for epoch in range(EPOCHS):
 # Save the model and tokenizer after training
 model.save_pretrained("models/finetuned")
 tokenizer.save_pretrained("models/finetuned")
-
-'''
-
-'''
