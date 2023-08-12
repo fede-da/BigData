@@ -1,9 +1,71 @@
+import torch
+from back_end.ai.constants import *
+from back_end.ai.utils.DatasetHandler import DatasetHandler
+from transformers import TrainingArguments, Trainer, AutoModelForCausalLM, AutoTokenizer, DataCollatorForLanguageModeling
+
+# Checking available GPU
+print("CUDA Available: ", torch.cuda.is_available())
+
+# Prepare dataset
+custom_dataset = DatasetHandler().my_dataset
+
+# Prepare tokenizer
+tokenizer = AutoTokenizer.from_pretrained('gpt2-medium')  # adjust the model name if using a different version
+tokenizer.pad_token = tokenizer.eos_token
+
+
+def tokenize_function(example):
+    return tokenizer(example['questions'], example['answers'], truncation=True, padding='max_length', max_length=512)
+
+
+# Tokenize dataset
+tokenized_datasets = custom_dataset.map(tokenize_function, batched=True)
+
+# Retrieve model
+model = AutoModelForCausalLM.from_pretrained('gpt2-medium')
+
+# Data collator
+data_collator = DataCollatorForLanguageModeling(
+    tokenizer=tokenizer, mlm=False
+)
+
+# Training arguments
+training_args = TrainingArguments(
+    per_device_train_batch_size=8,
+    num_train_epochs=1,
+    logging_dir=OUTPUT_LOG_FOLDER,
+    logging_steps=10,
+    save_steps=10,
+    output_dir=OUTPUT_RESULT_FOLDER,
+    overwrite_output_dir=True,
+    save_total_limit=2,
+)
+
+# Trainer
+trainer = Trainer(
+    model=model,
+    args=training_args,
+    train_dataset=tokenized_datasets,
+    data_collator=data_collator,
+)
+
+# Train
+trainer.train()
+
+# Save model and tokenizer
+model.save_pretrained(OUTPUT_MODEL_FOLDER)
+tokenizer.save_pretrained(OUTPUT_MODEL_FOLDER)
+
+
+
+'''
 import tensorflow as tf
 from transformers import GPT2Tokenizer, TFGPT2LMHeadModel
 
+from back_end.ai.utils.DatasetHandler import DatasetHandler
+
 # Checking available GPU
 print("Num GPUs Available: ", len(tf.config.experimental.list_physical_devices('GPU')))
-
 
 
 # Parameters
@@ -16,9 +78,8 @@ LEARNING_RATE = 3e-4
 tokenizer = GPT2Tokenizer.from_pretrained("gpt2-medium")
 tokenizer.pad_token = tokenizer.eos_token
 
-# Tokenize dataset and prepare it as a tf.data.Dataset
-with open("../data/raw/casual_talk.txt", "r") as file:
-    lines = file.readlines()
+# Prepare dataset
+custom_dataset = DatasetHandler()
 
 input_ids = [tokenizer.encode(text, max_length=MAX_LENGTH, truncation=True, padding='max_length') for text in lines]
 attention_masks = [[1 if token_id > 0 else 0 for token_id in input_id] for input_id in input_ids]
@@ -35,14 +96,8 @@ model = TFGPT2LMHeadModel.from_pretrained("gpt2-medium")
 # Define custom loss
 loss_object = tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True)
 
-# Check for M1/M2 Mac and adjust optimizer accordingly
-try:
-    if "Apple" in tf.test.gpu_device_name():
-        optimizer = tf.keras.optimizers.legacy.Adam(learning_rate=LEARNING_RATE)
-    else:
-        optimizer = tf.keras.optimizers.Adam(learning_rate=LEARNING_RATE)
-except Exception:
-    optimizer = tf.keras.optimizers.Adam(learning_rate=LEARNING_RATE)
+# Optimize for Mac
+optimizer = tf.keras.optimizers.legacy.Adam(learning_rate=LEARNING_RATE)
 
 
 def compute_loss(labels, logits):
@@ -75,3 +130,4 @@ for epoch in range(EPOCHS):
 # Save the model and tokenizer after training
 model.save_pretrained("models/finetuned")
 tokenizer.save_pretrained("models/finetuned")
+'''

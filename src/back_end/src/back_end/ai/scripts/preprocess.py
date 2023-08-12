@@ -2,8 +2,8 @@ from back_end.ai.constants import *
 
 
 # Read the original data
-with open(INPUT_FILE, "r") as file:
-    lines = file.readlines()
+_input_file = open(INPUT_FILE, "r")
+lines = _input_file.readlines()
 
 # Separate inputs and targets
 questions, answers, rejected = [], [], []
