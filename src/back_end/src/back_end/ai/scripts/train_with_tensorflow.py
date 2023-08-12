@@ -5,6 +5,7 @@ from transformers import GPT2Tokenizer, TFGPT2LMHeadModel
 print("Num GPUs Available: ", len(tf.config.experimental.list_physical_devices('GPU')))
 
 
+
 # Parameters
 BATCH_SIZE = 4
 EPOCHS = 1
