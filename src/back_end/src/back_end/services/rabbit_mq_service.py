@@ -1,6 +1,6 @@
 import pika
 from injector import inject, singleton
-
+from back_end.ai.ai_service import AiService
 from back_end.dtos.MessageDto import MessageDto
 from back_end.services.config_service import ConfigService
 
@@ -9,8 +9,9 @@ from back_end.services.config_service import ConfigService
 class RabbitMqService:
 
     @inject
-    def __init__(self, config_service: ConfigService):
+    def __init__(self, config_service: ConfigService, ai_service:AiService):
         self.config_service = config_service
+        self.ai_service = ai_service
         self.connection = pika.BlockingConnection(pika.ConnectionParameters(self.config_service.get_rabbitmq_hostname()))
         self.channel = self.connection.channel()
         self.start_consuming(self._on_message_callback)
@@ -46,9 +47,11 @@ class RabbitMqService:
         msg: MessageDto = MessageDto.from_json(body)
         msg.print_members()
         # send data to ai
-
+        response = self.ai_service.generate_response(msg.message)
+        print("IA response is: " + response)
         # wait for response
         # update MessageDto with ai response
+        msg.message = response
         # send data
         self.send_to_rabbitmq(msg)
 
