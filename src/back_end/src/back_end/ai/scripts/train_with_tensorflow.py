@@ -1,5 +1,73 @@
+import torch
+from torch.utils.data import Dataset, DataLoader, TensorDataset, random_split
+from transformers import GPT2Tokenizer, GPT2LMHeadModel, AdamW
+
+from back_end.ai.constants import *
+from back_end.ai.utils.DatasetHandler import DatasetHandler
+
+# Checking available GPU
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+print("Using:", device)
+
+
+# Load the tokenizer
+tokenizer = GPT2Tokenizer.from_pretrained("gpt2-medium")
+tokenizer.pad_token = tokenizer.eos_token
+
+# Read preprocessed data
+dataset_handler = DatasetHandler()
+lines = dataset_handler.my_dataset['questions'] + dataset_handler.my_dataset['answers']
+
+
+input_ids = [tokenizer.encode(text, max_length=MAX_LENGTH, truncation=True, padding='max_length') for text in lines]
+attention_masks = [[1 if token_id > 0 else 0 for token_id in input_id] for input_id in input_ids]
+
+input_ids = torch.tensor(input_ids, dtype=torch.long)
+attention_masks = torch.tensor(attention_masks, dtype=torch.long)
+
+dataset = TensorDataset(input_ids, attention_masks, input_ids)
+dataloader = DataLoader(dataset, shuffle=True, batch_size=BATCH_SIZE)
+
+# Load the pre-trained GPT-2 model
+model = GPT2LMHeadModel.from_pretrained("gpt2-medium")
+model.to(device)
+
+# Define custom loss
+loss_function = torch.nn.CrossEntropyLoss()
+
+# Optimizer
+optimizer = AdamW(model.parameters(), lr=LEARNING_RATE)
+
+# Training loop
+model.train()
+
+for epoch in range(EPOCHS):
+    total_loss = 0
+    for idx, (input_ids_batch, attention_mask_batch, labels_batch) in enumerate(dataloader):
+        input_ids_batch, attention_mask_batch, labels_batch = input_ids_batch.to(device), attention_mask_batch.to(
+            device), labels_batch.to(device)
+        #if idx >= 9:
+        #    break
+        optimizer.zero_grad()
+
+        outputs = model(input_ids_batch, attention_mask=attention_mask_batch, labels=labels_batch)
+        loss = outputs.loss
+        loss.backward()
+        optimizer.step()
+
+        total_loss += loss.item()
+        if idx % 10 == 0:
+            print(f"Epoch: {epoch}, Batch: {idx}, Loss: {loss.item() / len(input_ids_batch)}")
+
+# Save the model and tokenizer after training
+model.save_pretrained(OUTPUT_MODEL_FOLDER)
+tokenizer.save_pretrained(OUTPUT_MODEL_FOLDER)
+
+'''
 import tensorflow as tf
 from transformers import GPT2Tokenizer, TFGPT2LMHeadModel
+
+from back_end.ai.utils.DatasetHandler import DatasetHandler
 
 # Checking available GPU
 print("Num GPUs Available: ", len(tf.config.experimental.list_physical_devices('GPU')))
@@ -15,9 +83,8 @@ LEARNING_RATE = 3e-4
 tokenizer = GPT2Tokenizer.from_pretrained("gpt2-medium")
 tokenizer.pad_token = tokenizer.eos_token
 
-# Tokenize dataset and prepare it as a tf.data.Dataset
-with open("../data/raw/casual_talk.txt", "r") as file:
-    lines = file.readlines()
+# Prepare dataset
+custom_dataset = DatasetHandler()
 
 input_ids = [tokenizer.encode(text, max_length=MAX_LENGTH, truncation=True, padding='max_length') for text in lines]
 attention_masks = [[1 if token_id > 0 else 0 for token_id in input_id] for input_id in input_ids]
@@ -34,14 +101,8 @@ model = TFGPT2LMHeadModel.from_pretrained("gpt2-medium")
 # Define custom loss
 loss_object = tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True)
 
-# Check for M1/M2 Mac and adjust optimizer accordingly
-try:
-    if "Apple" in tf.test.gpu_device_name():
-        optimizer = tf.keras.optimizers.legacy.Adam(learning_rate=LEARNING_RATE)
-    else:
-        optimizer = tf.keras.optimizers.Adam(learning_rate=LEARNING_RATE)
-except Exception:
-    optimizer = tf.keras.optimizers.Adam(learning_rate=LEARNING_RATE)
+# Optimize for Mac
+optimizer = tf.keras.optimizers.legacy.Adam(learning_rate=LEARNING_RATE)
 
 
 def compute_loss(labels, logits):
@@ -74,3 +135,4 @@ for epoch in range(EPOCHS):
 # Save the model and tokenizer after training
 model.save_pretrained("models/finetuned")
 tokenizer.save_pretrained("models/finetuned")
+'''
