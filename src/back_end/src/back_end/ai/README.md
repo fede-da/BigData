@@ -29,7 +29,7 @@ Here's a break down:
 * **[Data](./data/README.md)**: Contains all the _raw_ and _processed data_ required to train the model.
 
 
-* **[Models](./models/README.md)**: Houses the _pretrained_ and _finetuned_ machine learning models..
+* **[Models](./models/README.md)**: Houses the _pretrained_ and _finetuned_ machine learning models.
 
 
 * **[Notebooks](./notebooks/README.md)**: Jupyter notebooks used for _exploratory data analysis_, _model evaluation_, and any other R&D purposes. A great place to visualize data and model performance.
@@ -48,22 +48,22 @@ This section contains all the prerequisites and packages needed to run the proje
 
 Before proceeding please double-check if your GPU supports _CUDA Development Tools_ from official [documentation](https://docs.nvidia.com/cuda/cuda-installation-guide-microsoft-windows/index.html#:~:text=You%20can%20verify%20that%20you,that%20GPU%20is%20CUDA%2Dcapable.).
 
-If your Nvidia GPU supports _CUDA_ then follow instructions to run `train_with_cuda.py` script; otherwise follow instructions to run `train_with_tensorflow.py` script.
-
 Please note that training without available GPU uses CPU instead so it could be quite slow, this is true for both solutions. Visit [script](./scripts/README.md) section to learn more.
 
 This project's packet manager is _pip_, if you don't have it read official [documentation](https://pip.pypa.io/en/stable/installation/). By the way, _conda_ works fine too.
 
-### Train with CUDA
+##  PyTorch
 
-Requirements to run CUDA scripts depends on the underlying system, please read carefully terminal's outputs.
+`PyTorch` is an optimized tensor library for deep learning using `GPUs` and `CPUs` developed by Facebook's AI Research lab especially useful when it comes to neural networks; it supports `CUDA` to heavy computing speed up. 
+
+Further information available [here](https://pytorch.org/docs/stable/index.html)
 
 #### Packages
 
 The following packages are required to run the program:
 
 - `transformers`: Set of pretrained models to perform tasks, to read more follow the [link](https://pypi.org/project/transformers/)
-- `torch`:  
+- `torch`
 
 Open your terminal and run the followings:
 
@@ -93,27 +93,6 @@ To achieve above instructions navigate to
 `HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\FileSystem` 
 
 then double-click on `LongPathEnabled` and set its value to `1`.
-
-### Train with Tensorflow
-
-Tensorflow installation is quite straightforward, the following packages are required:
-
-- `transformers`: Set of pretrained models to perform tasks, to read more follow the [link](https://pypi.org/project/transformers/)
-- `torch`:  Tensors and Dynamic neural networks in Python with strong GPU acceleration, to read more follow the [link](https://pypi.org/project/torch/)
-
-Run on terminal:
-
-```
-pip install tensorflow
-
-pip install transformers
-```
-
-Please read outputs carefully.
-
-### How to run
-
-To run the program execute the script that suits your needs; a new training begins
 
 
 
