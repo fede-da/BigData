@@ -10,8 +10,9 @@
 **/bin/
 **/obj/
 
-# bin 
+# bin and zip 
 *.bin
+*.zip 
 
 # MacOS
 *.DS_Store
