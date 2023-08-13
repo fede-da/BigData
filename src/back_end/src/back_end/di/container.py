@@ -1,7 +1,7 @@
 # This class defiens DI container, quite useful to configure services and tests
 
-from injector import inject, Injector, Module, singleton, provider
-from back_end.ai.ai_service import AiService
+from injector import Injector, Module, singleton, provider
+from back_end.ai.services.ai_service import AiService
 from back_end.services.config_service import ConfigService
 
 

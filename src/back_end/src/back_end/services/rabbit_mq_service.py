@@ -1,6 +1,6 @@
 import pika
 from injector import inject, singleton
-from back_end.ai.ai_service import AiService
+from back_end.ai.services.ai_service import AiService
 from back_end.dtos.MessageDto import MessageDto
 from back_end.services.config_service import ConfigService
 

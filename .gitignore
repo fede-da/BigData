@@ -5,6 +5,15 @@
 /.vs
 *.code-workspace
 
+# === .NET / ASP.NET Core ===
+# Exclude the build and output directories
+**/bin/
+**/obj/
+
+# bin and zip 
+*.bin
+*.zip 
+
 # MacOS
 *.DS_Store
 
