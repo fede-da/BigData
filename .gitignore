@@ -10,6 +10,9 @@
 **/bin/
 **/obj/
 
+# bin 
+*.bin
+
 # MacOS
 *.DS_Store
 

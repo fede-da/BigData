@@ -18,7 +18,6 @@ tokenizer.pad_token = tokenizer.eos_token
 dataset_handler = DatasetHandler()
 lines = dataset_handler.my_dataset['questions'] + dataset_handler.my_dataset['answers']
 
-
 input_ids = [tokenizer.encode(text, max_length=MAX_LENGTH, truncation=True, padding='max_length') for text in lines]
 attention_masks = [[1 if token_id > 0 else 0 for token_id in input_id] for input_id in input_ids]
 
