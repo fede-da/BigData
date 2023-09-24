@@ -35,10 +35,10 @@ Here's a break down:
 * **[Notebooks](./notebooks/README.md)**: Jupyter notebooks used for _exploratory data analysis_, _model evaluation_, and any other R&D purposes. A great place to visualize data and model performance.
 
 
-* **[Scripts](./scripts/README.md)**: Python scripts dedicated to tasks like _data preprocessing_, _model training_...
+* **[Scripts](./scripts/README.md)**: Python scripts that coordinate tasks like _data preprocessing_, _model training_...
 
 
-* **[Services](./services/README.md)**: Includes some tools to interface with the project.
+* **[Services](./services/README.md)**: Includes some tools to interact with the project.
 
 
 
