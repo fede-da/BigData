@@ -21,7 +21,6 @@ Each section contains different pieces of information about a specific matter, h
 │   └── trainings/
 └── services
     ├── ai_service.py
-    └── utils
 ```
 
 Here's a break down:
