@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "YBkDvNk6w30CFXUu/HDAI6RfweM0R7deoU+evEF2HED1wG8APmZ3UDyuyKteTIN+sRpPPNYwxbb40ULpBPwmNQ==",
+  "dgSpecHash": "VL0ajukCTVQ34Q0wuhYkboqQNAkL7ouMZEULcASZDTmEH1Zjenpp9trEDZ7+pE0b5S87a97ZZ5h2ePIF744KqA==",
   "success": true,
   "projectFilePath": "/Users/kaguyasama/GitHub/ML/test/RabbitMqServiceTest/RabbitMqServiceTest.csproj",
   "expectedPackageFiles": [
