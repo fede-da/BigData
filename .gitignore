@@ -102,6 +102,7 @@ MANIFEST
 env/
 venv/
 ENV/
+cheshire_for_hugging_face/
 
 # Spyder project settings
 .spyderproject
