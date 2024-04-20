@@ -30,7 +30,7 @@ class RabbitMqService:
 
         # Declare the queue (make sure it exists)
         self.channel.queue_declare(queue=name, durable=False)
-        message_dto.message = "Python response: " + message_dto.message
+        message_dto.message = "Chatbot response: " + message_dto.message
         # Send the message
         self.channel.basic_publish(
             exchange='',
