@@ -1,0 +1,3 @@
+[submodule "src/hugging_face"]
+	path = src/hugging_face
+	url = https://huggingface.co/ItalianMLDevs/TestForCheshire
