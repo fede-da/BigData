@@ -1,0 +1,36 @@
+﻿<button class="@CssClass" disabled="@IsLoading" @onclick="HandleClick">
+    @if (IsLoading)
+    {
+        @LoadingTemplate
+    }
+    else
+    {
+        @Text
+    }
+</button>
+
+@code {
+    [Parameter] public string Text { get; set; }
+    [Parameter] public string CssClass { get; set; }
+    [Parameter] public RenderFragment LoadingTemplate { get; set; }
+    [Parameter] public EventCallback OnClick { get; set; }
+
+    private bool IsLoading { get; set; }
+
+    private async Task HandleClick()
+    {
+        IsLoading = true;
+        try
+        {
+            await OnClick.InvokeAsync(null);
+        }
+        catch
+        {
+            // Handle errors
+        }
+        finally
+        {
+            IsLoading = false;
+        }
+    }
+}

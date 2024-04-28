@@ -1,19 +1,64 @@
 ﻿@page "/counter"
 @rendermode InteractiveAuto
+@using SpreadsheetReaderComponent
 
-<PageTitle>Counter</PageTitle>
 
-<h1>Counter</h1>
+<h3>Hello, welcome to the file uploader!</h3>
 
-<p role="status">Current count: @currentCount</p>
+<UploadExcelButton></UploadExcelButton>
+@* 
+<div class="container">
+    <div>
+        <!--UploadExcelButton>--UploadExcelButton>
+    </div>
+    <div class="section">
+        <p>Upload any file to store in MongoDB. The file will be converted to a binary format suitable for MongoDB storage.</p>
+        <InputFile OnChange="HandleMongoUpload" />
+        <img src="mongodb-icon.png" alt="MongoDB Icon" />
+        <!--button onclick="() => HandleMongoUpload">Upload to MongoDB--button>
+    </div>
+    <div class="section">
+        <p>Upload a file to store it on your local file system. This is suitable for files that need to be accessed directly from the server.</p>
+        <InputFile OnChange="HandleLocalUpload" />
+        <img src="filesystem-icon.png" alt="File System Icon" />
+        <!--button onclick="() => HandleLocalUpload">Save Locall--button>
+    </div>
+</div>
 
-<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
 
 @code {
-    private int currentCount = 0;
+    
 
-    private void IncrementCount()
+    private async Task HandleMongoUpload(InputFileChangeEventArgs e)
     {
-        currentCount++;
+        var file = e.File;
+        if (file != null)
+        {
+            // For MongoDB, you can store the file as a binary (BSON type)
+            var content = new byte[file.Size];
+            using (var stream = file.OpenReadStream())
+            {
+                await stream.ReadAsync(content);
+            }
+            // Assuming you have a MongoDB setup, use it to store the content
+        }
+    }
+
+    private async Task HandleLocalUpload(InputFileChangeEventArgs e)
+    {
+        var file = e.File;
+        if (file != null)
+        {
+            // Save the file to the local file system
+            var path = Path.Combine("LocalFiles", file.Name);
+            using (var stream = file.OpenReadStream())
+            {
+                using (var fs = new FileStream(path, FileMode.Create))
+                {
+                    await stream.CopyToAsync(fs);
+                }
+            }
+        }
     }
 }
+ *@
