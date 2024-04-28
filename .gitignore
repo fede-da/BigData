@@ -130,3 +130,4 @@ coverage/
 *.bak
 *~
 
+src/HuggingFaceRelatedHub/constants/api.py
