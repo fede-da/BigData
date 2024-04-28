@@ -10,7 +10,7 @@ using RagApp.DAL;
 
 namespace RagApp.DAL.Migrations
 {
-    [DbContext(typeof(RagAppDbContext))]
+    [DbContext(typeof(PostgresDbContext))]
     partial class RagAppDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

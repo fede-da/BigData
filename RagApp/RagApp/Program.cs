@@ -16,7 +16,7 @@ namespace RagApp
             Startup.ConfigureServices(builder.Services);
 
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-            builder.Services.AddDbContext<RagAppDbContext>(options =>
+            builder.Services.AddDbContext<PostgresDbContext>(options =>
                 //options.UseSqlServer(connectionString)
                 options.UseNpgsql(connectionString)
                 );

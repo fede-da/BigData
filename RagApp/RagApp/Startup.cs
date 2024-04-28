@@ -25,11 +25,13 @@ namespace RagApp
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddIdentityCore<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<RagAppDbContext>()
+                .AddEntityFrameworkStores<PostgresDbContext>()
                 .AddSignInManager()
                 .AddDefaultTokenProviders();
 
             services.AddScoped<IFileService, FileService>();
+            services.AddSingleton<MongoDbContext>();
+            services.AddControllers();
         }
 
         public static void Configure(WebApplication app, IWebHostEnvironment env)

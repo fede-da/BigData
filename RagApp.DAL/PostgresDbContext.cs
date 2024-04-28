@@ -6,9 +6,9 @@ using System.Reflection.Emit;
 
 namespace RagApp.DAL
 {
-    public class RagAppDbContext : IdentityDbContext<ApplicationUser>
+    public class PostgresDbContext : IdentityDbContext<ApplicationUser>
     {
-        public RagAppDbContext(DbContextOptions<RagAppDbContext> options)
+        public PostgresDbContext(DbContextOptions<PostgresDbContext> options)
             : base(options)
         {
         }
