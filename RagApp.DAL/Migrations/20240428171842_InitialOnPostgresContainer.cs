@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace RagApp.DAL.Migrations
 {
     /// <inheritdoc />
-    public partial class PostgresInitialOnRagAppDb : Migration
+    public partial class InitialOnPostgresContainer : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

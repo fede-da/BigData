@@ -12,8 +12,8 @@ using RagApp.DAL;
 namespace RagApp.DAL.Migrations
 {
     [DbContext(typeof(RagAppDbContext))]
-    [Migration("20240428161030_PostgresInitialOnRagAppDb")]
-    partial class PostgresInitialOnRagAppDb
+    [Migration("20240428171842_InitialOnPostgresContainer")]
+    partial class InitialOnPostgresContainer
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
