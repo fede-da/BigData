@@ -1,0 +1,50 @@
+﻿@using Microsoft.AspNetCore.Components.Forms
+@using SpreadsheetReaderComponent.Shared.Buttons
+@using SpreedsheetReader.Adapters
+
+<label for="excel-upload" class="btn btn-primary">Upload Excel file</label>
+<InputFile id="excel-upload" OnChange="HandleSelectedFile" accept=".xlsx, .xls" style="display:none;" />
+@if (filename!=null)
+{
+    <h5>@filename successfully loaded</h5>
+    <h5>Click the button below to complete the operation</h5>
+    <BaseButton Text="Import data" CssClass="btn btn-primary" OnClick="Import">
+        <LoadingTemplate>
+            <div>Loading...</div> <!-- Custom loading content -->
+        </LoadingTemplate>
+    </BaseButton>
+}
+
+
+@code {
+    string filename = null;
+    ExcelSpreadsheetAdapter excelSpreadsheet = null;
+
+    [Parameter]
+    public EventCallback<ICollection<string>> UpdateQuestionsFromExcel { get;set; }
+
+    private async Task HandleSelectedFile(InputFileChangeEventArgs e)
+    {
+        IBrowserFile file = e.File; // Get the first selected file
+        if (file != null)
+        {
+            filename = file.Name;
+            using var stream = new MemoryStream();
+            await file.OpenReadStream().CopyToAsync(stream);
+            stream.Position = 0; // Reset to the beginning of the stream
+            excelSpreadsheet = new ExcelSpreadsheetAdapter(stream);
+            excelSpreadsheet.PrintRows();
+            excelSpreadsheet.GetRows();
+        }
+    }
+
+    private void Import()
+    {
+        UpdateQuestionsFromExcel.InvokeAsync(GetCurrentExcelFileRows());
+    }
+
+    private ICollection<string> GetCurrentExcelFileRows()
+    {
+        return excelSpreadsheet.GetRows();
+    }
+}

@@ -1,1 +1,0 @@
-I colori andrebbero letti da file di configurazione, devo implementare anche le altre due tipologie di messaggio.

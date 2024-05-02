@@ -1,33 +1,37 @@
 {
   "format": 1,
   "restore": {
-    "/Users/kaguyasama/GitHub/ML/test/RabbitMqServiceTest/RabbitMqServiceTest.csproj": {}
+    "C:\\Users\\fdarmini\\Source\\Repos\\fede-da\\BigData\\test\\RabbitMqServiceTest\\RabbitMqServiceTest.csproj": {}
   },
   "projects": {
-    "/Users/kaguyasama/GitHub/ML/src/FrontEndServer/Client/FrontEndServer.Client.csproj": {
+    "C:\\Users\\fdarmini\\Source\\Repos\\fede-da\\BigData\\src\\FrontEndServer\\Client\\FrontEndServer.Client.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/kaguyasama/GitHub/ML/src/FrontEndServer/Client/FrontEndServer.Client.csproj",
+        "projectUniqueName": "C:\\Users\\fdarmini\\Source\\Repos\\fede-da\\BigData\\src\\FrontEndServer\\Client\\FrontEndServer.Client.csproj",
         "projectName": "FrontEndServer.Client",
-        "projectPath": "/Users/kaguyasama/GitHub/ML/src/FrontEndServer/Client/FrontEndServer.Client.csproj",
-        "packagesPath": "/Users/kaguyasama/.nuget/packages/",
-        "outputPath": "/Users/kaguyasama/GitHub/ML/src/FrontEndServer/Client/obj/",
+        "projectPath": "C:\\Users\\fdarmini\\Source\\Repos\\fede-da\\BigData\\src\\FrontEndServer\\Client\\FrontEndServer.Client.csproj",
+        "packagesPath": "C:\\Users\\fdarmini\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\fdarmini\\Source\\Repos\\fede-da\\BigData\\src\\FrontEndServer\\Client\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/kaguyasama/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\fdarmini\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
         ],
         "sources": {
-          "https://api.nuget.org/v3/index.json": {}
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {},
+          "https://pkgs.dev.azure.com/progesoftware/_packaging/3FS_Feed%40Local/nuget/v3/index.json": {}
         },
         "frameworks": {
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "/Users/kaguyasama/GitHub/ML/src/FrontEndServer/Shared/FrontEndServer.Shared.csproj": {
-                "projectPath": "/Users/kaguyasama/GitHub/ML/src/FrontEndServer/Shared/FrontEndServer.Shared.csproj"
+              "C:\\Users\\fdarmini\\Source\\Repos\\fede-da\\BigData\\src\\FrontEndServer\\Shared\\FrontEndServer.Shared.csproj": {
+                "projectPath": "C:\\Users\\fdarmini\\Source\\Repos\\fede-da\\BigData\\src\\FrontEndServer\\Shared\\FrontEndServer.Shared.csproj"
               }
             }
           }
@@ -36,6 +40,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -54,6 +63,24 @@
             "Microsoft.AspNetCore.SignalR.Client": {
               "target": "Package",
               "version": "[7.0.10, )"
+            },
+            "Microsoft.NET.ILLink.Analyzers": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[7.0.100-1.23211.1, )",
+              "autoReferenced": true
+            },
+            "Microsoft.NET.ILLink.Tasks": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[7.0.100-1.23211.1, )",
+              "autoReferenced": true
+            },
+            "Microsoft.NET.Sdk.WebAssembly.Pack": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[8.0.2, )",
+              "autoReferenced": true
             }
           },
           "imports": [
@@ -69,8 +96,20 @@
           "warn": true,
           "downloadDependencies": [
             {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[7.0.16, 7.0.16]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[7.0.16, 7.0.16]"
+            },
+            {
               "name": "Microsoft.NETCore.App.Runtime.Mono.browser-wasm",
-              "version": "[7.0.11, 7.0.11]"
+              "version": "[7.0.17, 7.0.17]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[7.0.16, 7.0.16]"
             }
           ],
           "frameworkReferences": {
@@ -78,7 +117,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.308/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200\\RuntimeIdentifierGraph.json"
         }
       },
       "runtimes": {
@@ -87,34 +126,37 @@
         }
       }
     },
-    "/Users/kaguyasama/GitHub/ML/src/FrontEndServer/Server/FrontEndServer.Server.csproj": {
+    "C:\\Users\\fdarmini\\Source\\Repos\\fede-da\\BigData\\src\\FrontEndServer\\Server\\FrontEndServer.Server.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/kaguyasama/GitHub/ML/src/FrontEndServer/Server/FrontEndServer.Server.csproj",
+        "projectUniqueName": "C:\\Users\\fdarmini\\Source\\Repos\\fede-da\\BigData\\src\\FrontEndServer\\Server\\FrontEndServer.Server.csproj",
         "projectName": "FrontEndServer.Server",
-        "projectPath": "/Users/kaguyasama/GitHub/ML/src/FrontEndServer/Server/FrontEndServer.Server.csproj",
-        "packagesPath": "/Users/kaguyasama/.nuget/packages/",
-        "outputPath": "/Users/kaguyasama/GitHub/ML/src/FrontEndServer/Server/obj/",
+        "projectPath": "C:\\Users\\fdarmini\\Source\\Repos\\fede-da\\BigData\\src\\FrontEndServer\\Server\\FrontEndServer.Server.csproj",
+        "packagesPath": "C:\\Users\\fdarmini\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\fdarmini\\Source\\Repos\\fede-da\\BigData\\src\\FrontEndServer\\Server\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/kaguyasama/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\fdarmini\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
         ],
         "sources": {
-          "/usr/local/share/dotnet/sdk/7.0.308/Sdks/Microsoft.NET.Sdk.Web/library-packs": {},
-          "https://api.nuget.org/v3/index.json": {}
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {},
+          "https://pkgs.dev.azure.com/progesoftware/_packaging/3FS_Feed%40Local/nuget/v3/index.json": {}
         },
         "frameworks": {
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "/Users/kaguyasama/GitHub/ML/src/FrontEndServer/Client/FrontEndServer.Client.csproj": {
-                "projectPath": "/Users/kaguyasama/GitHub/ML/src/FrontEndServer/Client/FrontEndServer.Client.csproj"
+              "C:\\Users\\fdarmini\\Source\\Repos\\fede-da\\BigData\\src\\FrontEndServer\\Client\\FrontEndServer.Client.csproj": {
+                "projectPath": "C:\\Users\\fdarmini\\Source\\Repos\\fede-da\\BigData\\src\\FrontEndServer\\Client\\FrontEndServer.Client.csproj"
               },
-              "/Users/kaguyasama/GitHub/ML/src/FrontEndServer/Shared/FrontEndServer.Shared.csproj": {
-                "projectPath": "/Users/kaguyasama/GitHub/ML/src/FrontEndServer/Shared/FrontEndServer.Shared.csproj"
+              "C:\\Users\\fdarmini\\Source\\Repos\\fede-da\\BigData\\src\\FrontEndServer\\Shared\\FrontEndServer.Shared.csproj": {
+                "projectPath": "C:\\Users\\fdarmini\\Source\\Repos\\fede-da\\BigData\\src\\FrontEndServer\\Shared\\FrontEndServer.Shared.csproj"
               }
             }
           }
@@ -123,6 +165,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -161,6 +208,24 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[7.0.16, 7.0.16]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Host.win-x64",
+              "version": "[7.0.16, 7.0.16]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[7.0.16, 7.0.16]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[7.0.16, 7.0.16]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -169,27 +234,31 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.308/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "/Users/kaguyasama/GitHub/ML/src/FrontEndServer/Shared/FrontEndServer.Shared.csproj": {
+    "C:\\Users\\fdarmini\\Source\\Repos\\fede-da\\BigData\\src\\FrontEndServer\\Shared\\FrontEndServer.Shared.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/kaguyasama/GitHub/ML/src/FrontEndServer/Shared/FrontEndServer.Shared.csproj",
+        "projectUniqueName": "C:\\Users\\fdarmini\\Source\\Repos\\fede-da\\BigData\\src\\FrontEndServer\\Shared\\FrontEndServer.Shared.csproj",
         "projectName": "FrontEndServer.Shared",
-        "projectPath": "/Users/kaguyasama/GitHub/ML/src/FrontEndServer/Shared/FrontEndServer.Shared.csproj",
-        "packagesPath": "/Users/kaguyasama/.nuget/packages/",
-        "outputPath": "/Users/kaguyasama/GitHub/ML/src/FrontEndServer/Shared/obj/",
+        "projectPath": "C:\\Users\\fdarmini\\Source\\Repos\\fede-da\\BigData\\src\\FrontEndServer\\Shared\\FrontEndServer.Shared.csproj",
+        "packagesPath": "C:\\Users\\fdarmini\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\fdarmini\\Source\\Repos\\fede-da\\BigData\\src\\FrontEndServer\\Shared\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/kaguyasama/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\fdarmini\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
         ],
         "sources": {
-          "https://api.nuget.org/v3/index.json": {}
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {},
+          "https://pkgs.dev.azure.com/progesoftware/_packaging/3FS_Feed%40Local/nuget/v3/index.json": {}
         },
         "frameworks": {
           "net7.0": {
@@ -201,6 +270,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -217,39 +291,57 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[7.0.16, 7.0.16]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[7.0.16, 7.0.16]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[7.0.16, 7.0.16]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.308/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "/Users/kaguyasama/GitHub/ML/test/RabbitMqServiceTest/RabbitMqServiceTest.csproj": {
+    "C:\\Users\\fdarmini\\Source\\Repos\\fede-da\\BigData\\test\\RabbitMqServiceTest\\RabbitMqServiceTest.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/kaguyasama/GitHub/ML/test/RabbitMqServiceTest/RabbitMqServiceTest.csproj",
+        "projectUniqueName": "C:\\Users\\fdarmini\\Source\\Repos\\fede-da\\BigData\\test\\RabbitMqServiceTest\\RabbitMqServiceTest.csproj",
         "projectName": "RabbitMqServiceTest",
-        "projectPath": "/Users/kaguyasama/GitHub/ML/test/RabbitMqServiceTest/RabbitMqServiceTest.csproj",
-        "packagesPath": "/Users/kaguyasama/.nuget/packages/",
-        "outputPath": "/Users/kaguyasama/GitHub/ML/test/RabbitMqServiceTest/obj/",
+        "projectPath": "C:\\Users\\fdarmini\\Source\\Repos\\fede-da\\BigData\\test\\RabbitMqServiceTest\\RabbitMqServiceTest.csproj",
+        "packagesPath": "C:\\Users\\fdarmini\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\fdarmini\\Source\\Repos\\fede-da\\BigData\\test\\RabbitMqServiceTest\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/kaguyasama/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\fdarmini\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
         ],
         "sources": {
-          "https://api.nuget.org/v3/index.json": {}
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {},
+          "https://pkgs.dev.azure.com/progesoftware/_packaging/3FS_Feed%40Local/nuget/v3/index.json": {}
         },
         "frameworks": {
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "/Users/kaguyasama/GitHub/ML/src/FrontEndServer/Server/FrontEndServer.Server.csproj": {
-                "projectPath": "/Users/kaguyasama/GitHub/ML/src/FrontEndServer/Server/FrontEndServer.Server.csproj"
+              "C:\\Users\\fdarmini\\Source\\Repos\\fede-da\\BigData\\src\\FrontEndServer\\Server\\FrontEndServer.Server.csproj": {
+                "projectPath": "C:\\Users\\fdarmini\\Source\\Repos\\fede-da\\BigData\\src\\FrontEndServer\\Server\\FrontEndServer.Server.csproj"
               }
             }
           }
@@ -258,6 +350,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -300,12 +397,26 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[7.0.16, 7.0.16]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[7.0.16, 7.0.16]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[7.0.16, 7.0.16]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.308/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200\\RuntimeIdentifierGraph.json"
         }
       }
     }
