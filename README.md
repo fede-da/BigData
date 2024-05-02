@@ -11,3 +11,7 @@ The project is divided into 4 main sections:
 3. [docs](./docs/README.md) - contains the documentation of the project
 
 4. [docker](./docker/README.md) - contains the docker files of the project
+
+## Build and run
+
+Run `start-project.py` file
