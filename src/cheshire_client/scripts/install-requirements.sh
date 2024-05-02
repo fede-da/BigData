@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Name of the variable
-var_name="ATCS_DIR_PATH"
+var_name="CHESHIRE_CLIENT_PROJECT_PATH"
 
 # Check if the environment variable is set
 if [ -z "${!var_name}" ]; then
