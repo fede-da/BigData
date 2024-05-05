@@ -1,0 +1,41 @@
+﻿@using System.Net.Http
+@using Microsoft.AspNetCore.Components.Forms
+@using RagApp.Services
+@inject IFileService FileService
+
+<EditForm Model="@this">
+    <div class="full-width">
+        <InputFile OnChange="@HandleFileSelected" />
+        <button @onclick="SendFile" disabled="!@isFileSelected" >Send File</button>
+    </div>
+</EditForm>
+
+
+@code {
+    private bool isFileSelected = false;
+    private IBrowserFile file;
+
+    private async Task HandleFileSelected(InputFileChangeEventArgs e)
+    {
+        file = e.File;
+        if (file != null)
+        {
+            isFileSelected = true;
+        }
+    }
+
+    private async Task SendFile()
+    {
+        if (file != null)
+        {
+            var content = new MultipartFormDataContent();
+            var fileContent = new StreamContent(file.OpenReadStream());
+            content.Add(fileContent, "\"file\"", file.Name);
+
+            var httpClient = new HttpClient();
+            var response = await httpClient.PostAsync("your-endpoint-here", content);
+
+            // Handle the response here, e.g., checking if the request was successful
+        }
+    }
+}

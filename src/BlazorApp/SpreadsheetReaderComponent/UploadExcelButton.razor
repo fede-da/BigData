@@ -2,6 +2,7 @@
 @using SpreadsheetReaderComponent.Shared.Buttons
 @using SpreedsheetReader.Adapters
 
+<div class="full-width">
 <label for="excel-upload" class="btn btn-primary">Upload Excel file</label>
 <InputFile id="excel-upload" OnChange="HandleSelectedFile" accept=".xlsx, .xls" style="display:none;" />
 @if (filename!=null)
@@ -14,7 +15,7 @@
         </LoadingTemplate>
     </BaseButton>
 }
-
+</div>
 
 @code {
     string filename = null;

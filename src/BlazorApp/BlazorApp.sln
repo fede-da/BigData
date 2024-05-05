@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RagApp.DAL", "RagApp.DAL\Ra
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpreadsheetReaderComponent", "SpreadsheetReaderComponent\SpreadsheetReaderComponent.csproj", "{9EFF6D94-8BE0-43A5-8692-5A219583A4DB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RagApp.Services", "RagApp.Services\RagApp.Services.csproj", "{443DB9C1-5CBF-4EEC-8712-997D00F5CC06}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{9EFF6D94-8BE0-43A5-8692-5A219583A4DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9EFF6D94-8BE0-43A5-8692-5A219583A4DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9EFF6D94-8BE0-43A5-8692-5A219583A4DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{443DB9C1-5CBF-4EEC-8712-997D00F5CC06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{443DB9C1-5CBF-4EEC-8712-997D00F5CC06}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{443DB9C1-5CBF-4EEC-8712-997D00F5CC06}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{443DB9C1-5CBF-4EEC-8712-997D00F5CC06}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,12 +1,17 @@
-﻿namespace RagApp.Services
+﻿using Microsoft.AspNetCore.Http;
+using System.IO;
+using System.Threading.Tasks;
+
+namespace RagApp.Services
 {
     public class FileService : IFileService
     {
         private readonly string _basePath;
 
-        public FileService(IWebHostEnvironment env)
+        public FileService()
         {
-            _basePath = Path.Combine(env.WebRootPath, "files");
+            // string iWebHostEnvironment
+            _basePath = "iWebHostEnvironment";
         }
 
         public async Task SaveFileAsync(IFormFile file, string path)
