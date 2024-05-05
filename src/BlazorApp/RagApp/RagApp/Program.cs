@@ -23,9 +23,9 @@ namespace RagApp
                 options.UseNpgsql(connectionString)
                 );
 
-            builder.Services.AddScoped<ICheshireCatService, CheshireCatService>();
             builder.Services.AddHttpClient();
-
+            builder.Services.AddScoped<ICheshireCatService, CheshireCatService>();
+            
             var app = builder.Build();
 
             Startup.Configure(app, app.Environment);

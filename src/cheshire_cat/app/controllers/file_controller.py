@@ -1,8 +1,8 @@
 from flask import Flask, Blueprint, request, jsonify, current_app
 import requests
 import cheshire_cat_api as ccat
-import CheshireCatConfig 
-import time 
+from app.controllers.CheshireCatConfig import CheshireCatConfig
+import time
 
 file_blueprint = Blueprint('file', __name__)
 
@@ -30,9 +30,8 @@ def forward_file():
         #      return jsonify({'error': 'Failed to forward file to external server'}), 500
         # # else:
         # #     return jsonify({'status': 'success', 'message': 'File forwarded successfully'}), 200
-        
 
-        config = CheshireCatConfig.CheshireCatConfig(base_url="localhost", port=1865, user_id="user", auth_key="", secure_connection=False)
+        config = CheshireCatConfig(base_url="localhost", port=1865, user_id="user", auth_key="", secure_connection=False)
         cat_client = config.create_client()
 
         cat_client.connect_ws()
@@ -40,7 +39,7 @@ def forward_file():
         while not cat_client.is_ws_connected: 
             time.sleep(1)
 
-        cat_client.send(message="Hello Cat!")
+        #cat_client.send(message="Hello Cat!")
 
         time.sleep(1)
 
@@ -75,13 +74,3 @@ def forward_file():
     #response = cat_client.memory.wipe_collections()
 
     return jsonify({'error': 'File processing error'}), 500
-
-# Crea un'applicazione Flask
-app = Flask(__name__)
-
-# Registra il blueprint nell'applicazione Flask
-app.register_blueprint(file_blueprint)
-
-# Avvia il server Flask
-if __name__ == '__main__':
-    app.run(debug=True)

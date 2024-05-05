@@ -3,6 +3,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Components.Forms;
 
 
 namespace RagApp.Services.CheshireCatService
@@ -15,13 +16,15 @@ namespace RagApp.Services.CheshireCatService
         _clientFactory = clientFactory;
         }
 
-        public async Task<FileUploadResult> sendFile(IFormFile file)
+        public async Task<FileUploadResult> sendFile(IBrowserFile file)
         {
-            if (file == null || file.Length == 0)
+            if (file == null || file.Size == 0)
             {
                 throw new System.ArgumentException("File is null or empty.");
             }
-
+            // Replace below with current ip address before sending the request
+            string localMachineIpAddress = "192.168.1.56";
+            string port = "5000";
             using var httpClient = _clientFactory.CreateClient();
             using var form = new MultipartFormDataContent();
             using var fileStream = file.OpenReadStream();
@@ -29,12 +32,13 @@ namespace RagApp.Services.CheshireCatService
             content.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
             {
                 Name = "file",
-                FileName = file.FileName
+                FileName = file.Name
             };
             content.Headers.ContentType = new MediaTypeHeaderValue(file.ContentType);
             form.Add(content);
 
-            var response = await httpClient.PostAsync("http://127.0.0.1:5000/forward-file", form);
+            var flaskUrl = $"http://{localMachineIpAddress}:{port}/api/forward-file";
+            var response = await httpClient.PostAsync(flaskUrl, form);
             var readContent = await response.Content.ReadAsStringAsync();
 
             return new FileUploadResult
