@@ -1,3 +1,5 @@
+import os
+
 from flask import Flask, Blueprint, request, jsonify, current_app
 import requests
 import cheshire_cat_api as ccat
@@ -46,7 +48,10 @@ def forward_file():
         if cat_client.is_ws_connected:
             # Leggi il contenuto del file come bytes
             file_content_bytes = file.read()
+            #temp_dir = file_content_bytes.gettempdir()
 
+            temp_path = os.path.join("C:/Users/fdarmini/source/repos/fede-da/BigData/src/cheshire_cat/app/controllers",
+                                     file.filename)
             # Converti il contenuto in stringa, se necessario
             file_content_string = file_content_bytes.decode('utf-8')  # Supponendo che il file sia in formato utf-8
 
@@ -56,7 +61,7 @@ def forward_file():
 
             try:
                 response = cat_client.rabbit_hole.upload_file(
-                    file=file_content_string,  
+                    file=temp_path,
                     chunk_size=1000,  
                     chunk_overlap=100,  
                     _request_timeout=(20, 20)  
