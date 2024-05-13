@@ -1,11 +1,14 @@
 ﻿@page "/counter"
-@rendermode InteractiveAuto
-@using SpreadsheetReaderComponent
+@rendermode InteractiveServer
 
+@using SpreadsheetReaderComponent
+@using RagApp.Client.Components
 
 <h3>Hello, welcome to the file uploader!</h3>
 
 <UploadExcelButton></UploadExcelButton>
+<UploadFileToCatMemoryRow></UploadFileToCatMemoryRow>
+
 @* 
 <div class="container">
     <div>

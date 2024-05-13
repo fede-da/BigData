@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\RagApp.DAL\RagApp.DAL.csproj" />
+    <ProjectReference Include="..\..\RagApp.Services\RagApp.Services.csproj" />
     <ProjectReference Include="..\RagApp.Client\RagApp.Client.csproj" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.2" />

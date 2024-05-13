@@ -1,4 +1,5 @@
 import os
+
 import tempfile
 import time
 from flask import Flask, Blueprint, request, jsonify
@@ -29,17 +30,22 @@ def forward_file():
     while not cat_client.is_ws_connected:
         time.sleep(1)
 
-    # Send a message to the Cheshire Cat server
-    cat_client.send(message="Hello Cat!")
+        # # Handle the response from the external server
+        # if response.status_code != 200:
+        #      return jsonify({'error': 'Failed to forward file to external server'}), 500
+        # # else:
+        # #     return jsonify({'status': 'success', 'message': 'File forwarded successfully'}), 200
 
-    # Wait for one second
-    time.sleep(1)
+        config = CheshireCatConfig(base_url="localhost", port=1865, user_id="user", auth_key="", secure_connection=False)
+        cat_client = config.create_client()
+
 
     # Determine the file extension
     _, file_extension = os.path.splitext(file.filename)
 
     # Create a temporary file based on the file extension
     temp_file = tempfile.NamedTemporaryFile(delete=False, suffix=file_extension)
+
 
     print("Percorso del file temporaneo:", temp_file.name)
 

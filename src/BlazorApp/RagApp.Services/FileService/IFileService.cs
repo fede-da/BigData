@@ -1,4 +1,8 @@
-﻿namespace RagApp.Services
+﻿using Microsoft.AspNetCore.Http;
+using System.IO;
+using System.Threading.Tasks;
+
+namespace RagApp.Services
 {
     public interface IFileService
     {

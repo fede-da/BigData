@@ -1,0 +1,51 @@
+﻿@using System.Net.Http
+@using Microsoft.AspNetCore.Components.Forms
+@using RagApp.Services.CheshireCatService
+@inject ICheshireCatService CheshireCatService
+
+<EditForm Model="@formModel" OnValidSubmit="HandleValidSubmit">
+    <div class="full-width">
+        <InputFile OnChange="@HandleFileSelected" />
+        <button type="button" @onclick="SendFile" disabled=@(!isFileSelected) >Send File</button>
+    </div>
+</EditForm>
+
+@code {
+    private bool isFileSelected { get; set; } = false;
+    private IBrowserFile file { get; set; }
+    private string message = "";
+
+    // Assume a simple model class, you might need to create an appropriate one
+    private class FormModel { }
+
+    private FormModel formModel = new FormModel();
+
+    private async Task HandleFileSelected(InputFileChangeEventArgs e)
+    {
+        file = e.File;
+        if (file.Size > 15728640)
+        {
+            message = "File is too large. Please select a file under 15 MB.";
+            isFileSelected = false;
+            return;
+        }
+        isFileSelected = true;
+        message = "";
+    }
+
+    private async Task SendFile()
+    {
+        if (file != null && isFileSelected)
+        {
+            var res = await CheshireCatService.sendFile(file);
+            message = res.Message; 
+            Console.WriteLine(res);
+        }
+    }
+
+    private void HandleValidSubmit()
+    {
+        // Handle the form submission here if needed
+    }
+}
+
