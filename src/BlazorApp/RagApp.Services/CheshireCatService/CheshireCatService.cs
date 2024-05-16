@@ -4,6 +4,7 @@ using System.Net.Http.Headers;
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components.Forms;
+using System;
 
 
 namespace RagApp.Services.CheshireCatService
@@ -23,7 +24,7 @@ namespace RagApp.Services.CheshireCatService
                 throw new System.ArgumentException("File is null or empty.");
             }
             // Replace below with current ip address before sending the request
-            string localMachineIpAddress = "192.168.1.56";
+            string localMachineIpAddress = "localhost";
             string port = "5000";
             using var httpClient = _clientFactory.CreateClient();
             using var form = new MultipartFormDataContent();
@@ -40,6 +41,7 @@ namespace RagApp.Services.CheshireCatService
             var flaskUrl = $"http://{localMachineIpAddress}:{port}/api/forward-file";
             var response = await httpClient.PostAsync(flaskUrl, form);
             var readContent = await response.Content.ReadAsStringAsync();
+            Console.WriteLine("Result is:" + readContent);
 
             return new FileUploadResult
             {
