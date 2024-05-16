@@ -66,9 +66,3 @@ def forward_file():
         os.unlink(temp_file.name)
 
     return jsonify({'status': 'success', 'message': 'File forwarded successfully'}), 200
-
-# Create a Flask application
-app = Flask(__name__)
-
-# Register the blueprint in the Flask application
-app.register_blueprint(file_blueprint)
