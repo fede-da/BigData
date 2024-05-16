@@ -2,12 +2,11 @@ import os
 
 import tempfile
 import time
-from flask import Flask, Blueprint, request, jsonify, app
+from flask import Flask, Blueprint, request, jsonify
 import cheshire_cat_api as ccat
 from .cheshire_cat_config import CheshireCatConfig
 
 file_blueprint = Blueprint('file', __name__)
-
 
 @file_blueprint.route('/forward-file', methods=['POST'])
 def forward_file():
@@ -67,5 +66,3 @@ def forward_file():
         os.unlink(temp_file.name)
 
     return jsonify({'status': 'success', 'message': 'File forwarded successfully'}), 200
-
-
