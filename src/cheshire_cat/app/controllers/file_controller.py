@@ -30,16 +30,6 @@ def forward_file():
     while not cat_client.is_ws_connected:
         time.sleep(1)
 
-        # # Handle the response from the external server
-        # if response.status_code != 200:
-        #      return jsonify({'error': 'Failed to forward file to external server'}), 500
-        # # else:
-        # #     return jsonify({'status': 'success', 'message': 'File forwarded successfully'}), 200
-
-        config = CheshireCatConfig(base_url="localhost", port=1865, user_id="user", auth_key="", secure_connection=False)
-        cat_client = config.create_client()
-
-
     # Determine the file extension
     _, file_extension = os.path.splitext(file.filename)
 
