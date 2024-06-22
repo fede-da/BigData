@@ -34,7 +34,7 @@ def forward_file():
     # Create a temporary file based on the file extension
     with tempfile.NamedTemporaryFile(delete=False, suffix=file_extension) as temp_file:
         try:
-            if file.content_type.startswith('text'):
+            if file.content_type.startswith('text') or file_extension == '.md':
                 file_content = file.stream.read().decode('utf-8')
                 temp_file.write(file_content.encode('utf-8'))
             else:
