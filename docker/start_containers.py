@@ -35,6 +35,26 @@ def start_containers(parent_dir="."):
         if stderr:
             print(f"Errors from {dir_path}:", stderr.decode())
 
+    # Run the specified command after all containers are up
+    try:
+        process = subprocess.Popen(["docker", "exec", "ollama_cat", "ollama", "pull", "llama3"],
+                                   stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, encoding='utf-8')
+
+        # Read output in real-time
+        while True:
+            output = process.stdout.readline()
+            if output == '' and process.poll() is not None:
+                break
+            if output:
+                print(output.strip())
+
+        stderr = process.stderr.read()
+        if stderr:
+            print(stderr.strip())
+
+    except subprocess.CalledProcessError as e:
+        print("Error occurred while running the command:", e.stderr.decode('utf-8'))
+
 if __name__ == "__main__":
     # You can specify a different directory here if needed
     start_containers(".")

@@ -14,3 +14,13 @@ services:
       - ./static:/app/cat/static
       - ./plugins:/app/cat/plugins
       - ./data:/app/cat/data
+    depends_on:
+      - ollama
+
+  ollama:
+    container_name: ollama_cat
+    image: ollama/ollama:latest
+    volumes:
+      - ./ollama:/root/.ollama
+    expose:
+      - 11434
