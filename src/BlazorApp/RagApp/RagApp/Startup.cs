@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using RagApp.Components;
 using RagApp.DAL;
+using RagApp.DAL.Repositories.Mongo.EmployeeService;
 using RagApp.Services;
 
 namespace RagApp
@@ -30,6 +31,7 @@ namespace RagApp
                 .AddDefaultTokenProviders();
 
             services.AddScoped<IFileService, FileService>();
+            services.AddScoped<IEmployeeService, EmployeeService>();
             services.AddSingleton<MongoDbContext>();
             services.AddControllers();
         }

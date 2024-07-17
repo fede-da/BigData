@@ -18,9 +18,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="PostgresModels\" />
     <Folder Include="Repositories\Mongo\" />
     <Folder Include="Repositories\Postgres\" />
+    <Folder Include="Models\" />
+    <Folder Include="Models\MongoModels\" />
+    <Folder Include="Repositories\Mongo\EmployeeService\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="Models\" />
+    <None Remove="Models\MongoModels\" />
+    <None Remove="Repositories\Mongo\EmployeeService\" />
+  </ItemGroup>
 </Project>
