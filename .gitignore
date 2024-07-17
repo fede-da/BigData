@@ -133,3 +133,4 @@ coverage/
 src/HuggingFaceRelatedHub/constants/api.py
 
 **/data/
+docker/CheshireCat/ollama/id_ed25519
