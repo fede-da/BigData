@@ -25,4 +25,10 @@
       <CopyToPublishDirectory>Never</CopyToPublishDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup>
+    <None Remove="Components\Buttons\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Components\Buttons\" />
+  </ItemGroup>
 </Project>

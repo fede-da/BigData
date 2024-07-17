@@ -1,0 +1,71 @@
+﻿@page "/json-loader"
+@using System.IO
+@using System.Text.Json
+@using System.Text;
+
+<h3>JSON Loader</h3>
+<input type="file" @onchange="LoadJsonFile" />
+@if (jsonContent != null)
+{
+    <pre>@jsonContent</pre>
+}
+
+@if (errorMessage != null)
+{
+    <div style="color:red">@errorMessage</div>
+}
+
+@code {
+    private string jsonContent;
+    private string errorMessage;
+
+    private async Task LoadJsonFile(ChangeEventArgs e)
+    {
+        var file = e.Value as IBrowserFile;
+        if (file != null)
+        {
+            try
+            {
+                // Only accept JSON files
+                if (!file.Name.EndsWith(".json"))
+                {
+                    errorMessage = "Please upload a JSON file.";
+                    return;
+                }
+
+                // Read the file into memory
+                var buffer = new byte[file.Size];
+                await file.OpenReadStream().ReadAsync(buffer);
+                var json = Encoding.UTF8.GetString(buffer);
+
+                // Check JSON validity and required keys
+                ValidateJson(json);
+                jsonContent = json; // Display the JSON content
+                errorMessage = null;
+            }
+            catch (Exception ex)
+            {
+                errorMessage = $"Error reading file: {ex.Message}";
+            }
+        }
+    }
+
+    private void ValidateJson(string jsonString)
+    {
+        try
+        {
+            var jsonObject = JsonDocument.Parse(jsonString);
+            JsonElement root;
+            if (!jsonObject.RootElement.TryGetProperty("requiredKey", out root))
+            {
+                throw new Exception("JSON does not contain the required key: 'requiredKey'.");
+            }
+
+            // Add additional checks as needed
+        }
+        catch (JsonException)
+        {
+            throw new Exception("Invalid JSON format.");
+        }
+    }
+}
