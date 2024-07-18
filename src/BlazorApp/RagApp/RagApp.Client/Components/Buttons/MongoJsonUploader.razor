@@ -27,9 +27,9 @@
     private string errorMessage;
     private string jsonContent;
 
-    private async Task LoadJsonFile(ChangeEventArgs e)
+    private async Task LoadJsonFile(InputFileChangeEventArgs e)
     {
-        var file = e.Value as IBrowserFile;
+        IBrowserFile file = e.File;
         if (file != null)
         {
             try
