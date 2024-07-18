@@ -23,11 +23,13 @@
     <Folder Include="Models\" />
     <Folder Include="Models\MongoModels\" />
     <Folder Include="Repositories\Mongo\EmployeeService\" />
+    <Folder Include="Utils\" />
   </ItemGroup>
 
   <ItemGroup>
     <None Remove="Models\" />
     <None Remove="Models\MongoModels\" />
     <None Remove="Repositories\Mongo\EmployeeService\" />
+    <None Remove="Utils\" />
   </ItemGroup>
 </Project>

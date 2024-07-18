@@ -46,7 +46,7 @@
                 await file.OpenReadStream().ReadAsync(buffer);
                 jsonContent = Encoding.UTF8.GetString(buffer);
 
-                employees = ValidateJson(jsonContent);
+                employees = Employee.DeserializeFromJson(jsonContent);
                 await insertAndUpdateEmployees();
             }
             catch (Exception ex)
@@ -61,5 +61,4 @@
         return await MongoService.UpsertEmployeesAsync(employees);
     }
 
-    private List<Employee> ValidateJson(string jsonString) => JsonSerializer.Deserialize<List<Employee>>(jsonString);
 }
