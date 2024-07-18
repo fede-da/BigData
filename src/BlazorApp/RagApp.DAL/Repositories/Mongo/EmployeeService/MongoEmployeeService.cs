@@ -1,15 +1,16 @@
 ﻿using System;
 using Microsoft.Extensions.Options;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using RagApp.DAL.MongoModels;
 
-namespace RagApp.DAL.Repositories.Mongo.EmployeeService
+namespace RagApp.DAL.Repositories.Mongo.MongoEmployeeService
 {
-    public class EmployeeService : IEmployeeService
+    public class MongoEmployeeService : IMongoEmployeeService
     {
         private readonly IMongoCollection<Employee> _employees;
 
-        public EmployeeService(IOptions<CheshireCatDatabaseSettings> settings)
+        public MongoEmployeeService(IOptions<CheshireCatDatabaseSettings> settings)
         {
             var mongoClient = new MongoClient(settings.Value.ConnectionString);
             var mongoDatabase = mongoClient.GetDatabase(settings.Value.DatabaseName);
@@ -33,6 +34,20 @@ namespace RagApp.DAL.Repositories.Mongo.EmployeeService
 
         public async Task DeleteAsync(string id) =>
             await _employees.DeleteOneAsync(employee => employee.Id == id);
+
+        // Inserts or updates multiple employees
+        public async Task<long> UpsertEmployeesAsync(IEnumerable<Employee> employees)
+        {
+            var models = new List<WriteModel<Employee>>();
+            foreach (var employee in employees)
+            {
+                var filter = Builders<Employee>.Filter.Eq(e => e.Id, employee.Id ?? ObjectId.GenerateNewId().ToString());
+                var replaceOne = new ReplaceOneModel<Employee>(filter, employee) { IsUpsert = true };
+                models.Add(replaceOne);
+            }
+            var operationResult = await _employees.BulkWriteAsync(models);
+            return operationResult.InsertedCount + operationResult.ModifiedCount;
+        }
     }
 }
 

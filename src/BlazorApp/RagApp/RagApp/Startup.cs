@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using RagApp.Components;
 using RagApp.DAL;
-using RagApp.DAL.Repositories.Mongo.EmployeeService;
+using RagApp.DAL.Repositories.Mongo.MongoEmployeeService;
 using RagApp.Services;
+using RagApp.Services.CheshireCatService;
 
 namespace RagApp
 {
@@ -31,7 +32,8 @@ namespace RagApp
                 .AddDefaultTokenProviders();
 
             services.AddScoped<IFileService, FileService>();
-            services.AddScoped<IEmployeeService, EmployeeService>();
+            services.AddScoped<ICheshireCatService, CheshireCatService>();
+            services.AddScoped<IMongoEmployeeService, MongoEmployeeService>();
             services.AddSingleton<MongoDbContext>();
             services.AddControllers();
         }

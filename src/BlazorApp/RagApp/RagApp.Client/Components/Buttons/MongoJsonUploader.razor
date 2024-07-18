@@ -1,10 +1,17 @@
-﻿@page "/json-loader"
+﻿
 @using System.IO
 @using System.Text.Json
-@using System.Text;
+@using System.Text
+@using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.Components.Forms
+@using RagApp.DAL.MongoModels
+@using RagApp.DAL.Repositories.Mongo.MongoEmployeeService
+
+@inject IMongoEmployeeService MongoService
 
 <h3>JSON Loader</h3>
-<input type="file" @onchange="LoadJsonFile" />
+<InputFile id="json-upload" OnChange="LoadJsonFile" accept=".json" style="display:none;" />
+
 @if (jsonContent != null)
 {
     <pre>@jsonContent</pre>
@@ -16,8 +23,9 @@
 }
 
 @code {
-    private string jsonContent;
+    private List<Employee> employees;
     private string errorMessage;
+    private string jsonContent;
 
     private async Task LoadJsonFile(ChangeEventArgs e)
     {
@@ -33,15 +41,12 @@
                     return;
                 }
 
-                // Read the file into memory
                 var buffer = new byte[file.Size];
                 await file.OpenReadStream().ReadAsync(buffer);
-                var json = Encoding.UTF8.GetString(buffer);
+                jsonContent = Encoding.UTF8.GetString(buffer);
 
-                // Check JSON validity and required keys
-                ValidateJson(json);
-                jsonContent = json; // Display the JSON content
-                errorMessage = null;
+                employees = ValidateJson(jsonContent);
+                await insertAndUpdateEmployees();
             }
             catch (Exception ex)
             {
@@ -50,22 +55,10 @@
         }
     }
 
-    private void ValidateJson(string jsonString)
+    public async Task<long> insertAndUpdateEmployees()
     {
-        try
-        {
-            var jsonObject = JsonDocument.Parse(jsonString);
-            JsonElement root;
-            if (!jsonObject.RootElement.TryGetProperty("requiredKey", out root))
-            {
-                throw new Exception("JSON does not contain the required key: 'requiredKey'.");
-            }
-
-            // Add additional checks as needed
-        }
-        catch (JsonException)
-        {
-            throw new Exception("Invalid JSON format.");
-        }
+        return await MongoService.UpsertEmployeesAsync(employees);
     }
+
+    private List<Employee> ValidateJson(string jsonString) => JsonSerializer.Deserialize<List<Employee>>(jsonString);
 }

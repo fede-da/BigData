@@ -31,7 +31,6 @@ namespace RagApp
 
 
             builder.Services.AddHttpClient();
-            builder.Services.AddScoped<ICheshireCatService, CheshireCatService>();
             
             var app = builder.Build();
 
