@@ -1,5 +1,7 @@
-from flask import Flask, Blueprint, jsonify
+from flask import Flask, Blueprint, jsonify, request
 from pymongo import MongoClient
+import psycopg2
+import mimetypes
 import tempfile
 import os
 import time
@@ -12,7 +14,6 @@ file_blueprint = Blueprint('file_blueprint', __name__)
 # Configura il logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
-
 
 def forward_file(file):
     # Initialize the connection with Cheshire Cat
@@ -72,8 +73,8 @@ def forward_file(file):
         return jsonify({'error': f'Error connecting to Cheshire Cat: {str(e)}'}), 500
 
 
-@file_blueprint.route('/retrieve-and-forward-files', methods=['GET'])
-def retrieve_and_forward_files():
+@file_blueprint.route('/retrieve-and-forward-files/mongo', methods=['GET'])
+def retrieve_and_forward_files_mongo():
     # Initialize MongoDB connection
     mongo_client = MongoClient("mongodb://admin:password@localhost:27017/")
     db = mongo_client['mydatabase']
@@ -100,3 +101,83 @@ def retrieve_and_forward_files():
         forward_file(file)
 
     return jsonify({'status': 'success', 'message': 'All files forwarded successfully'}), 200
+
+
+@file_blueprint.route('/retrieve-and-forward-files/filesystem', methods=['GET'])
+def retrieve_and_forward_files_filesystem():
+    # Get the file path from the query parameters
+    file_path = request.args.get('file_path')
+
+    if not file_path:
+        return jsonify({'error': 'No file path provided'}), 400
+
+    # Check if file exists
+    if not os.path.isfile(file_path):
+        logger.error(f"File does not exist: {file_path}")
+        return jsonify({'error': f"File does not exist: {file_path}"}), 404
+
+    filename = os.path.basename(file_path)
+
+    # Determine the MIME type based on the file extension
+    mime_type, _ = mimetypes.guess_type(file_path)
+    if mime_type is None:
+        mime_type = 'application/octet-stream'  # Default MIME type for binary files
+
+    try:
+        # Read the file content
+        with open(file_path, 'rb') as file:  # Open in binary mode
+            file_content = file.read()
+    except Exception as e:
+        logger.error(f"Error reading file: {str(e)}")
+        return jsonify({'error': f'Error reading file: {str(e)}'}), 500
+
+    file_data = {
+        'filename': filename,
+        'content_type': mime_type,
+        'content': file_content
+    }
+
+    return forward_file(file_data)
+
+
+@file_blueprint.route('/retrieve-and-forward-files/postgres', methods=['GET'])
+def retrieve_and_forward_files_postgres():
+    # Initialize PostgreSQL connection
+    try:
+        conn = psycopg2.connect(
+            dbname="postgres",
+            user="postgres",
+            password="postgres",
+            host="localhost",
+            port="5432"
+        )
+        cursor = conn.cursor()
+
+        cursor.execute("SELECT nome, posizione, dipartimento, eta, data_assunzione, email FROM dipendenti")
+        rows = cursor.fetchall()
+
+        # Loop through the rows and forward each one
+        for row in rows:
+            file_content = (
+                f"Nome: {row[0]}\n"
+                f"Posizione: {row[1]}\n"
+                f"Dipartimento: {row[2]}\n"
+                f"Età: {row[3]}\n"
+                f"Data Assunzione: {row[4]}\n"
+                f"Email: {row[5]}\n"
+            )
+            file = {
+                'filename': f"{row[0].replace(' ', '_')}.txt",
+                'content_type': 'text/plain',
+                'content': file_content
+            }
+            forward_file(file)
+
+        cursor.close()
+        conn.close()
+
+        return jsonify({'status': 'success', 'message': 'All files forwarded successfully'}), 200
+
+    except Exception as e:
+        logger.error(f"Error connecting to PostgreSQL: {str(e)}")
+        return jsonify({'error': f'Error connecting to PostgreSQL: {str(e)}'}), 500
