@@ -127,19 +127,24 @@ def retrieve_and_forward_files_filesystem():
 
     try:
         # Read the file content
-        with open(file_path, 'rb') as file:  # Open in binary mode
+        with open(file_path, 'rb') as file:
             file_content = file.read()
+
+        # If the file is a text file, ensure it's properly encoded
+        if mime_type.startswith('text/') or mime_type in ['application/json', 'text/markdown']:
+            file_content = file_content.decode('utf-8', errors='replace')  # Decode with error handling
+
+        file_data = {
+            'filename': filename,
+            'content_type': mime_type,
+            'content': file_content
+        }
+
+        return forward_file(file_data)
+
     except Exception as e:
         logger.error(f"Error reading file: {str(e)}")
         return jsonify({'error': f'Error reading file: {str(e)}'}), 500
-
-    file_data = {
-        'filename': filename,
-        'content_type': mime_type,
-        'content': file_content
-    }
-
-    return forward_file(file_data)
 
 
 @file_blueprint.route('/retrieve-and-forward-files/postgres', methods=['GET'])
