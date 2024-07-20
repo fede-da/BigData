@@ -1,3 +1,5 @@
+import subprocess
+
 from flask import Flask, Blueprint, jsonify, request
 from pymongo import MongoClient
 import psycopg2
@@ -142,8 +144,8 @@ def retrieve_and_forward_files_filesystem():
 
 @file_blueprint.route('/retrieve-and-forward-files/postgres', methods=['GET'])
 def retrieve_and_forward_files_postgres():
-    # Initialize PostgreSQL connection
     try:
+        # Initialize PostgreSQL connection
         conn = psycopg2.connect(
             dbname="postgres",
             user="postgres",
@@ -153,31 +155,62 @@ def retrieve_and_forward_files_postgres():
         )
         cursor = conn.cursor()
 
-        cursor.execute("SELECT nome, posizione, dipartimento, eta, data_assunzione, email FROM dipendenti")
-        rows = cursor.fetchall()
+        # Esegui la query e ottieni il risultato
+        sql_query = "SELECT nome, posizione, dipartimento, eta, data_assunzione, email FROM dipendenti"
+        result = subprocess.run([
+            'docker', 'exec', 'postgres-rag-app',
+            'psql', '-U', 'postgres', '-d', 'postgres', '-c', sql_query
+        ], capture_output=True, text=True)
 
-        # Loop through the rows and forward each one
-        for row in rows:
-            file_content = (
-                f"Nome: {row[0]}\n"
-                f"Posizione: {row[1]}\n"
-                f"Dipartimento: {row[2]}\n"
-                f"Età: {row[3]}\n"
-                f"Data Assunzione: {row[4]}\n"
-                f"Email: {row[5]}\n"
-            )
-            file = {
-                'filename': f"{row[0].replace(' ', '_')}.txt",
-                'content_type': 'text/plain',
-                'content': file_content
-            }
-            forward_file(file)
+        # Analizza il risultato della query
+        output_lines = result.stdout.splitlines()
+
+        # Salta le righe di intestazione e quelle vuote
+        data = []
+        for line in output_lines:
+            # Rimuovi eventuali righe vuote e intestazioni
+            line = line.strip()
+            if line and '|' in line:
+                parts = line.split('|')
+                if len(parts) == 6:  # Assicurati che ci siano esattamente 6 colonne
+                    nome = parts[0].strip()
+                    posizione = parts[1].strip()
+                    dipartimento = parts[2].strip()
+                    try:
+                        eta = int(parts[3].strip())
+                    except ValueError:
+                        eta = None  # Gestisci valori non numerici per l'età
+                    data_assunzione = parts[4].strip()
+                    email = parts[5].strip()
+                    data.append((nome, posizione, dipartimento, eta, data_assunzione, email))
+
+                    file_content = (
+                        f"Nome: {nome}\n"
+                        f"Posizione: {posizione}\n"
+                        f"Dipartimento: {dipartimento}\n"
+                        f"Età: {eta}\n"
+                        f"Data Assunzione: {data_assunzione}\n"
+                        f"Email: {email}\n"
+                    )
+
+                    # Crea il dizionario del file
+                    file = {
+                        'filename': f"{nome.replace(' ', '_')}.txt",
+                        'content_type': 'text/plain',
+                        'content': file_content
+                    }
+
+                    forward_file(file)
 
         cursor.close()
         conn.close()
 
         return jsonify({'status': 'success', 'message': 'All files forwarded successfully'}), 200
 
-    except Exception as e:
+    except psycopg2.Error as e:
         logger.error(f"Error connecting to PostgreSQL: {str(e)}")
         return jsonify({'error': f'Error connecting to PostgreSQL: {str(e)}'}), 500
+
+    except Exception as e:
+        logger.error(f"Unexpected error: {str(e)}")
+        return jsonify({'error': f'Unexpected error: {str(e)}'}), 500
