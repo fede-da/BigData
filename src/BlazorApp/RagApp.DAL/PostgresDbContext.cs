@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.VisualBasic;
-using System.Collections.Generic;
-using System.Reflection.Emit;
+using RagApp.DAL.PostgresModels;
 
 namespace RagApp.DAL
 {
@@ -12,6 +10,7 @@ namespace RagApp.DAL
             : base(options)
         {
         }
-       
+
+        public DbSet<Dipendente> Dipendenti { get; set; }
     }
 }

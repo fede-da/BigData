@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using RagApp.Client;
 using RagApp.Services.CheshireCatService;
+using RagApp.Services.PostgresService;
 
 namespace RagApp.Client
 {
@@ -16,6 +17,8 @@ namespace RagApp.Client
 
             builder.Services.AddHttpClient<ICheshireCatService, CheshireCatService>();
             //builder.Services.AddSingleton<AuthenticationStateProvider, PersistentAuthenticationStateProvider>();
+
+            builder.Services.AddScoped<CsvService>();
 
             await builder.Build().RunAsync();
         }

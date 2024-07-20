@@ -1,0 +1,44 @@
+@using System.IO
+@using Microsoft.AspNetCore.Components.Forms
+@using RagApp.Services.PostgresService
+@inject CsvService CsvService
+
+<h3>PostgreSQL CSV Loader</h3>
+<label for="csv-upload" class="btn btn-primary">Upload CSV file</label>
+<InputFile id="csv-upload" OnChange="LoadCsvFile" accept=".csv" style="display:none;" />
+
+@if (errorMessage != null)
+{
+    <div style="color:red">@errorMessage</div>
+}
+
+@code {
+    private string errorMessage = string.Empty;
+
+    private async Task LoadCsvFile(InputFileChangeEventArgs e)
+    {
+        IBrowserFile file = e.File;
+        if (file != null)
+        {
+            try
+            {
+                // Solo file CSV
+                if (!file.Name.EndsWith(".csv"))
+                {
+                    errorMessage = "Per favore carica un file CSV.";
+                    return;
+                }
+
+                // Passa il flusso del file al servizio CSV
+                await CsvService.ImportCsvAsync(file.OpenReadStream());
+
+                // Messaggio di successo
+                errorMessage = "File CSV importato con successo.";
+            }
+            catch (Exception ex)
+            {
+                errorMessage = $"Errore nella lettura del file: {ex.Message}";
+            }
+        }
+    }
+}

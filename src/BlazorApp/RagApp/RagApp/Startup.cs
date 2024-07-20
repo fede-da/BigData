@@ -2,6 +2,7 @@
 using RagApp.Components;
 using RagApp.DAL;
 using RagApp.DAL.Repositories.Mongo.MongoEmployeeService;
+using RagApp.DAL.Repositories.Postgres.PostgresDipendenteService;
 using RagApp.Services;
 using RagApp.Services.CheshireCatService;
 
@@ -34,6 +35,7 @@ namespace RagApp
             services.AddScoped<IFileService, FileService>();
             services.AddScoped<ICheshireCatService, CheshireCatService>();
             services.AddScoped<IMongoEmployeeService, MongoEmployeeService>();
+            services.AddScoped<IPostgresDipendenteService, PostgresDipendenteService>(); // Aggiungi questa riga
             services.AddSingleton<MongoDbContext>();
             services.AddControllers();
         }
@@ -49,7 +51,6 @@ namespace RagApp
             else
             {
                 app.UseExceptionHandler("/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
