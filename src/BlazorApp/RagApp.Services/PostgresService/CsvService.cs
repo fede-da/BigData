@@ -27,7 +27,7 @@ namespace RagApp.Services.PostgresService
             {
                 using (var reader = new StreamReader(csvStream))
                 {
-                    string headerLine = reader.ReadLine(); // Leggi l'intestazione
+                    string headerLine = await reader.ReadLineAsync(); // Leggi l'intestazione
                     if (headerLine == null)
                     {
                         _logger.LogWarning("Il file CSV è vuoto.");
@@ -35,18 +35,18 @@ namespace RagApp.Services.PostgresService
                     }
 
                     string line;
-                    while ((line = reader.ReadLine()) != null)
+                    while ((line = await reader.ReadLineAsync()) != null)
                     {
                         var dipendente = DipendenteParser.Parse(line);
 
-                        var existingDipendente = await _postgresDipendenteService.GetByIdAsync(dipendente.Id.ToString());
+                        var existingDipendente = await _postgresDipendenteService.GetByIdAsync(dipendente.Id);
                         if (existingDipendente == null)
                         {
                             await _postgresDipendenteService.CreateAsync(dipendente);
                         }
                         else
                         {
-                            await _postgresDipendenteService.UpdateAsync(existingDipendente.Id.ToString(), dipendente);
+                            await _postgresDipendenteService.UpdateAsync(dipendente.Id, dipendente);
                         }
                     }
                 }

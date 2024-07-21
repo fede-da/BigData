@@ -20,7 +20,7 @@ namespace RagApp.DAL.Utils
                 Nome = values[0],
                 Posizione = values[1],
                 Dipartimento = values[2],
-                Eta = int.Parse(values[3], CultureInfo.InvariantCulture), // Assumendo che Eta sia un intero
+                Eta = int.Parse(values[3], CultureInfo.InvariantCulture),
                 DataAssunzione = CustomDateTimeConverter.ConvertFromString(values[4]), // Usa la funzione CustomDateTimeConverter
                 Email = values[5]
             };

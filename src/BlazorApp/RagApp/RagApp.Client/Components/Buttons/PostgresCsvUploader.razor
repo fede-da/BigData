@@ -1,4 +1,3 @@
-@using System.IO
 @using Microsoft.AspNetCore.Components.Forms
 @using RagApp.Services.PostgresService
 @inject CsvService CsvService
@@ -7,17 +6,17 @@
 <label for="csv-upload" class="btn btn-primary">Upload CSV file</label>
 <InputFile id="csv-upload" OnChange="LoadCsvFile" accept=".csv" style="display:none;" />
 
-@if (errorMessage != null)
+@if (!string.IsNullOrEmpty(errorMessage))
 {
     <div style="color:red">@errorMessage</div>
 }
 
 @code {
-    private string errorMessage = string.Empty;
+    private string errorMessage;
 
     private async Task LoadCsvFile(InputFileChangeEventArgs e)
     {
-        IBrowserFile file = e.File;
+        var file = e.File;
         if (file != null)
         {
             try
@@ -30,7 +29,10 @@
                 }
 
                 // Passa il flusso del file al servizio CSV
-                await CsvService.ImportCsvAsync(file.OpenReadStream());
+                using (var stream = file.OpenReadStream())
+                {
+                    await CsvService.ImportCsvAsync(stream);
+                }
 
                 // Messaggio di successo
                 errorMessage = "File CSV importato con successo.";

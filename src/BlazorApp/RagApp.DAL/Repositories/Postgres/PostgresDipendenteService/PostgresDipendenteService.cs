@@ -20,7 +20,7 @@ namespace RagApp.DAL.Repositories.Postgres.PostgresDipendenteService
             return await _context.Dipendenti.ToListAsync();
         }
 
-        public async Task<Dipendente> GetByIdAsync(string id)
+        public async Task<Dipendente> GetByIdAsync(int id)
         {
             return await _context.Dipendenti.FindAsync(id);
         }
@@ -32,7 +32,7 @@ namespace RagApp.DAL.Repositories.Postgres.PostgresDipendenteService
             return dipendente;
         }
 
-        public async Task UpdateAsync(string id, Dipendente dipendenteIn)
+        public async Task UpdateAsync(int id, Dipendente dipendenteIn)
         {
             var existingDipendente = await _context.Dipendenti.FindAsync(id);
             if (existingDipendente != null)
@@ -49,7 +49,7 @@ namespace RagApp.DAL.Repositories.Postgres.PostgresDipendenteService
             }
         }
 
-        public async Task DeleteAsync(string id)
+        public async Task DeleteAsync(int id)
         {
             var dipendente = await _context.Dipendenti.FindAsync(id);
             if (dipendente != null)

@@ -1,21 +1,18 @@
 using System;
 using System.Globalization;
 
-namespace RagApp.DAL.Utils
+public static class CustomDateTimeConverter
 {
-    public class CustomDateTimeConverter
+    public static DateTime ConvertFromString(string dateTimeString)
     {
-        private static readonly string[] Formats = { "M/d/yyyy", "MM/dd/yyyy", "yyyy-MM-dd" }; // Aggiungi altri formati se necessario
+        // Specifica il formato della data che ti aspetti
+        string[] formats = { "yyyy-MM-dd", "MM/dd/yyyy", "dd/MM/yyyy", "M/d/yyyy"};
 
-        public static DateTime ConvertFromString(string text)
+        if (DateTime.TryParseExact(dateTimeString, formats, CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime parsedDate))
         {
-            DateTime dateTime;
-            if (DateTime.TryParseExact(text, Formats, CultureInfo.InvariantCulture, DateTimeStyles.None, out dateTime))
-            {
-                return dateTime;
-            }
-
-            throw new FormatException($"Cannot convert '{text}' to DateTime.");
+            return parsedDate.ToUniversalTime(); // Assicurati che sia in UTC
         }
+
+        throw new FormatException($"Formato della data non valido per il valore: {dateTimeString}");
     }
 }
