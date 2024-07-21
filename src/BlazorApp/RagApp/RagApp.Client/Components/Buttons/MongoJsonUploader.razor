@@ -1,0 +1,64 @@
+﻿
+@using System.IO
+@using System.Text.Json
+@using System.Text
+@using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.Components.Forms
+@using RagApp.DAL.MongoModels
+@using RagApp.DAL.Repositories.Mongo.MongoEmployeeService
+
+@inject IMongoEmployeeService MongoService
+
+<h3>JSON Loader</h3>
+<label for="json-upload" class="btn btn-primary">Upload JSON file</label>
+<InputFile id="json-upload" OnChange="LoadJsonFile" accept=".json" style="display:none;" />
+
+@if (jsonContent != null)
+{
+    <pre>@jsonContent</pre>
+}
+
+@if (errorMessage != null)
+{
+    <div style="color:red">@errorMessage</div>
+}
+
+@code {
+    private List<Employee> employees;
+    private string errorMessage;
+    private string jsonContent;
+
+    private async Task LoadJsonFile(InputFileChangeEventArgs e)
+    {
+        IBrowserFile file = e.File;
+        if (file != null)
+        {
+            try
+            {
+                // Only accept JSON files
+                if (!file.Name.EndsWith(".json"))
+                {
+                    errorMessage = "Please upload a JSON file.";
+                    return;
+                }
+
+                var buffer = new byte[file.Size];
+                await file.OpenReadStream().ReadAsync(buffer);
+                jsonContent = Encoding.UTF8.GetString(buffer);
+
+                employees = Employee.DeserializeFromJson(jsonContent);
+                await insertAndUpdateEmployees();
+            }
+            catch (Exception ex)
+            {
+                errorMessage = $"Error reading file: {ex.Message}";
+            }
+        }
+    }
+
+    public async Task<long> insertAndUpdateEmployees()
+    {
+        return await MongoService.UpsertEmployeesAsync(employees);
+    }
+
+}

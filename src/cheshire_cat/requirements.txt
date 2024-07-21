@@ -1,3 +1,6 @@
 flask
 requests
 cheshire_cat_api
+Flask-SQLAlchemy
+pymongo
+psycopg2

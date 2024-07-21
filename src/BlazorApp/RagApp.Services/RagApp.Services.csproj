@@ -11,6 +11,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="8.0.0" />
+    <ProjectReference Include="..\RagApp.DAL\RagApp.DAL.csproj" />
   </ItemGroup>
 
 </Project>

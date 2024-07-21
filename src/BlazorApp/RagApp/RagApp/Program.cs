@@ -5,7 +5,9 @@ using Microsoft.EntityFrameworkCore;
 using RagApp.Client.Pages;
 using RagApp.Components;
 using RagApp.DAL;
+using RagApp.DAL.MongoModels;
 using RagApp.Services.CheshireCatService;
+using RagApp.Services.PostgresService;
 
 namespace RagApp
 {
@@ -15,19 +17,26 @@ namespace RagApp
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            // Configura i servizi
             Startup.ConfigureServices(builder.Services);
 
-            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+            var postgresConnectionString = builder.Configuration.GetConnectionString("DefaultPostgreConnection") ?? throw new InvalidOperationException("Connection string 'DefaultPostgreConnection' not found.");
+
+            builder.Services.Configure<CheshireCatDatabaseSettings>(
+                builder.Configuration.GetSection("MongoCheshireCatDb"));
+
+            // Configura il contesto di database PostgreSQL
             builder.Services.AddDbContext<PostgresDbContext>(options =>
-                //options.UseSqlServer(connectionString)
-                options.UseNpgsql(connectionString)
-                );
+                options.UseNpgsql(postgresConnectionString)
+            );
+
+            builder.Services.AddScoped<CsvService>();
 
             builder.Services.AddHttpClient();
-            builder.Services.AddScoped<ICheshireCatService, CheshireCatService>();
-            
+
             var app = builder.Build();
 
+            // Configura l'app
             Startup.Configure(app, app.Environment);
 
             app.Run();
